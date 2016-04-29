@@ -1,0 +1,738 @@
+<html>
+    <head>
+        <title><center>Purchase - SOL2DAPP - BUILDER! / The Ethereum Dapp Front-end</center></title>
+    </head>
+
+    <body>
+<div class="ui two column doubling stackable grid centered">
+    <div id="top1">
+        <div id="top-inner">
+        <h1><center>Purchase - SOL2DAPP - BUILDER! / The Ethereum Dapp Front-end</center></h1>
+        <hr class="ui divider">
+        </div>
+        <div id="top-inner1">
+        <h3>Create The New Purchase Contract</h3>
+        <p>This will deploy your Purchase contract to the Ethereum blockchain}}</p>
+        <p>For testing purposes please use the morden testnet as it allows the testing of dapps with free(testnet) ether.</p>
+        <p>You can try deploying the contract, if successful copy and paste this provided contract address inside the generated
+           HTML file. </p>
+        <hr class="ui divider">
+        <p>Insert the contract address on the line that looks like this: `instancePurchase = Purchase.at('YOUR_CONTRACT_ADDRESS');`</p>
+        <hr class="ui divider">
+        </div>
+    </div>
+</div>
+        
+        
+        
+        <button id="PurchaseNew">Deploy Purchase</button>
+        
+        <div id="PurchaseNewMessage"></div>
+        
+        
+            
+                <h3>seller</h3>
+                
+        
+                <div id="sellerMessage"></div>
+
+                <button id="sellerCall">Call</button>
+                <button id="sellerTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+                <h3>abort</h3>
+                
+        
+                <div id="abortMessage"></div>
+
+                <button id="abortCall">Call</button>
+                <button id="abortTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+                <h3>value</h3>
+                
+        
+                <div id="valueMessage"></div>
+
+                <button id="valueCall">Call</button>
+                <button id="valueTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+                <h3>setIPFSData</h3>
+                
+                    <input type="text" id="setIPFSDataIPFSHash" class="" placeholder="setIPFSData  IPFSHash ">
+                
+        
+                <div id="setIPFSDataMessage"></div>
+
+                <button id="setIPFSDataCall">Call</button>
+                <button id="setIPFSDataTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+                <h3>refund</h3>
+                
+        
+                <div id="refundMessage"></div>
+
+                <button id="refundCall">Call</button>
+                <button id="refundTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+                <h3>buyer</h3>
+                
+        
+                <div id="buyerMessage"></div>
+
+                <button id="buyerCall">Call</button>
+                <button id="buyerTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+                <h3>confirmReceived</h3>
+                
+        
+                <div id="confirmReceivedMessage"></div>
+
+                <button id="confirmReceivedCall">Call</button>
+                <button id="confirmReceivedTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+                <h3>state</h3>
+                
+        
+                <div id="stateMessage"></div>
+
+                <button id="stateCall">Call</button>
+                <button id="stateTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+                <h3>IPFSData</h3>
+                
+        
+                <div id="IPFSDataMessage"></div>
+
+                <button id="IPFSDataCall">Call</button>
+                <button id="IPFSDataTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+                <h3>confirmPurchase</h3>
+                
+        
+                <div id="confirmPurchaseMessage"></div>
+
+                <button id="confirmPurchaseCall">Call</button>
+                <button id="confirmPurchaseTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+        
+            
+                <h3>Aborted</h3>
+                
+        
+                <div id="AbortedMessage"></div>
+
+                <button id="AbortedCall">Call</button>
+                <button id="AbortedTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+                <h3>PurchaseConfirmed</h3>
+                
+        
+                <div id="PurchaseConfirmedMessage"></div>
+
+                <button id="PurchaseConfirmedCall">Call</button>
+                <button id="PurchaseConfirmedTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+                <h3>ItemReceived</h3>
+                
+        
+                <div id="ItemReceivedMessage"></div>
+
+                <button id="ItemReceivedCall">Call</button>
+                <button id="ItemReceivedTransact">Transact</button>
+        
+                <hr>
+            
+        
+            
+                <h3>Refunded</h3>
+                
+        
+                <div id="RefundedMessage"></div>
+
+                <button id="RefundedCall">Call</button>
+                <button id="RefundedTransact">Transact</button>
+        
+                <hr>
+            
+        
+        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.5.10/dist/clipboard.min.js"></script>
+        <script type="text/javascript" src="https://raw.githack.com/ethereum/web3.js/master/dist/web3.js"></script>
+        <script type="text/javascript">// Set the Ethereum node RPC provider location, usually someServer:8545
+    // web3.setProvider(new web3.providers.HttpProvider('http://localhost:8545'));
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545")); 
+    
+    window.onload = function () {
+        // this will setup the contract factory, default call object and transaction object settings.
+        var Purchase = web3.eth.contract([{"constant":true,"inputs":[],"name":"seller","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[],"name":"abort","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"value","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[{"name":"IPFSHash","type":"string"}],"name":"setIPFSData","outputs":[],"type":"function"},{"constant":false,"inputs":[],"name":"refund","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"buyer","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[],"name":"confirmReceived","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"state","outputs":[{"name":"","type":"uint8"}],"type":"function"},{"constant":true,"inputs":[],"name":"IPFSData","outputs":[{"name":"","type":"string"}],"type":"function"},{"constant":false,"inputs":[],"name":"confirmPurchase","outputs":[],"type":"function"},{"inputs":[{"name":"IPFSHash","type":"string"}],"type":"constructor"},{"anonymous":false,"inputs":[],"name":"Aborted","type":"event"},{"anonymous":false,"inputs":[],"name":"PurchaseConfirmed","type":"event"},{"anonymous":false,"inputs":[],"name":"ItemReceived","type":"event"},{"anonymous":false,"inputs":[],"name":"Refunded","type":"event"}]);
+        var instancePurchase = Purchase.at('your_contract_address');
+        instancePurchase.defaultCallObject = {};
+        instancePurchase.defaultTransactionObject = {gas: 3000000, value: 0};
+    
+        // This will get the accounts and select account zero for use with transactions
+        web3.eth.getAccounts(function(err, result){
+            if(!err)
+                instancePurchase.defaultTransactionObject.from = result[0];
+        });
+
+        // This will handle creating a new deployment of the Purchase contract
+        document.getElementById("PurchaseNew").onclick = function() {
+            $("#PurchaseNewMessage").html("Deploying contract Purchase to the Ethereum blockchain.");
+
+            var defaultNewObject = instancePurchase.defaultTransactionObject;
+            defaultNewObject.data = "6060604052604051610680380380610680833981016040528051016000600234061480603b576002565b50505050610586806100fa6000396000f35b33600160006101000a815481600160a060020a0302191690830217905550600234046000600050819055508160036000509080519060200190828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1060c957805160ff19168380011785555b5060299291505b8082111560f6576000815560010160b7565b8280016001018555821560b0579182015b8281111560b057825182600050559160200191906001019060da565b509056606060405236156100825760e060020a600035046308551a53811461008a57806335a063b41461009c5780633fa4f245146100bc5780634a3b2899146100c5578063590e1ae3146101225780637150d8ae1461014257806373fac6f014610154578063c19d93fb14610171578063ce90e9a314610185578063d6960697146101e0575b6101ff610002565b610201600154600160a060020a031681565b6101ff600154600160a060020a0390811633919091161461032c57610002565b61021460005481565b60206004803580820135601f8101849004909302608090810160405260608481526101ff94602493919291840191819083828082843750949650505050505050600154600160a060020a0390811633919091161461028c57610002565b6101ff600154600160a060020a039081163391909116146104b157610002565b610201600254600160a060020a031681565b6101ff600254600160a060020a0333811691161461041357610002565b61021460025460ff60a060020a9091041681565b61021e6003805460806020601f6002600019600186161561010002019094169390930492830181900402810160405260608281529291908282801561057e5780601f106105535761010080835404028352916020019161057e565b6101ff60025460009060ff60a060020a9091041681146103a857610002565b005b600160a060020a03166060908152602090f35b6060908152602090f35b60405180806020018281038252838181518152602001915080519060200190808383829060006004602084601f0104600f02600301f150905090810190601f16801561027e5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b8060036000509080519060200190828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106102f357805160ff19168380011785555b506103239291505b8082111561032857600081556001016102df565b828001600101855582156102d7579182015b828111156102d7578251826000505591602001919060010190610305565b505050565b5090565b60025460009060a060020a900460ff16811461034757610002565b600154600160a060020a03908116908290301631606082818181858883f150506002805460a060020a60ff02191660a160020a179055506040517f72c874aeff0b183a56e2b79c71b46e1aed4dee5e09862134b8821ba2fddbf8bf9250a150565b80546002023414806103b957610002565b6002805460a060020a60ff021973ffffffffffffffffffffffffffffffffffffffff1990911633171660a060020a1790557fd5d55c8a68912e9a110618df8d5e2e83b8d83211c57a8ddd1203df92885dc881826060a15050565b60025460019060a060020a900460ff16811461042e57610002565b60025460008054600160a060020a0390921691606082818181858883f150508354604051600160a060020a0391821694503090911631915082818181858883f150506002805460a060020a60ff02191660a160020a179055506040517fe89152acd703c9d8c7d28829d443260b411454d45394e7995815140c8cbcbcf79250a150565b60025460019060a060020a900460ff1681146104cc57610002565b6002805460008054600160a060020a0390921692909102606082818181858883f150508354604051600160a060020a0391821694503090911631915082818181858883f150506002805460a060020a60ff02191660a160020a179055506040517f8616bbbbad963e4e65b1366f1d75dfb63f9e9704bbbf91fb01bec70849906cf79250a150565b820191906000526020600020905b81548152906001019060200180831161056157829003601f168201915b50505050508156";
+
+            Purchase.new( instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#PurchaseNewMessage").html("Error deploying contract Purchase to the blockchain. The error was: " + String(err));
+
+                if(result.transactionHash)
+                    $("#PurchaseNewMessage").html("The contract deployment transaction is at hash: " + result.transactionHash + " the contract is still being deployed. Please wait. This may take a minute or two...");
+
+                if(result.address)
+                    $("#PurchaseNewMessage").html("The Purchase contract has been deployed to address: " + result.address);
+            });
+        };
+    
+        // REMEMBER: Some methods you may want to transact with, others you may just want to call. Remove and add the methods and buttons you need at will. This provides a basic front-end html/js interface.
+
+        // if your result's from a method call are an array like [283, BigNumber], you can process different parts by using result[0] or result[1] for example. If a result is a BigNumber, use result[0].toNumber(10) to convert the BigNumber object to a normal integer. If your data is a hex string like 0x0000924982499, then use web3.toAscii(result[0]) to return a normal non hex value like "hey", for example.
+        // so use toNumber(10) to convert numbers
+        // and web3.toAscii(YOUR_HEX) to convert hex to ascii
+    
+
+
+    
+        // this will handle the seller contract call
+        document.getElementById("sellerCall").onclick = function() {
+            $("#sellerMessage").html("Calling method seller...");
+    
+            
+
+            instancePurchase.seller.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#sellerMessage").html("There was an error calling method seller. The error was: " + String(err));
+
+                if(result)
+                    $("#sellerMessage").html("The seller result is: " + String(result));
+            });
+        }
+        
+        // this will handle the seller contact transaction
+        document.getElementById("sellerTransact").onclick = function() {
+            $("#sellerMessage").html("Transacting with method seller... This may take a minute or two.");
+    
+            
+
+            instancePurchase.seller.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#sellerMessage").html("There was an error transacting with method seller. The error was: " + String(err));
+    
+                if(result)
+                    $("#sellerMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+        // this will handle the abort contract call
+        document.getElementById("abortCall").onclick = function() {
+            $("#abortMessage").html("Calling method abort...");
+    
+            
+
+            instancePurchase.abort.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#abortMessage").html("There was an error calling method abort. The error was: " + String(err));
+
+                if(result)
+                    $("#abortMessage").html("The abort result is: " + String(result));
+            });
+        }
+        
+        // this will handle the abort contact transaction
+        document.getElementById("abortTransact").onclick = function() {
+            $("#abortMessage").html("Transacting with method abort... This may take a minute or two.");
+    
+            
+
+            instancePurchase.abort.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#abortMessage").html("There was an error transacting with method abort. The error was: " + String(err));
+    
+                if(result)
+                    $("#abortMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+        // this will handle the value contract call
+        document.getElementById("valueCall").onclick = function() {
+            $("#valueMessage").html("Calling method value...");
+    
+            
+
+            instancePurchase.value.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#valueMessage").html("There was an error calling method value. The error was: " + String(err));
+
+                if(result)
+                    $("#valueMessage").html("The value result is: " + String(result));
+            });
+        }
+        
+        // this will handle the value contact transaction
+        document.getElementById("valueTransact").onclick = function() {
+            $("#valueMessage").html("Transacting with method value... This may take a minute or two.");
+    
+            
+
+            instancePurchase.value.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#valueMessage").html("There was an error transacting with method value. The error was: " + String(err));
+    
+                if(result)
+                    $("#valueMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+        // this will handle the setIPFSData contract call
+        document.getElementById("setIPFSDataCall").onclick = function() {
+            $("#setIPFSDataMessage").html("Calling method setIPFSData...");
+    
+            
+            var setIPFSDataIPFSHash = $('#setIPFSDataIPFSHash').val();
+            
+
+            instancePurchase.setIPFSData.call(setIPFSDataIPFSHash,   instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#setIPFSDataMessage").html("There was an error calling method setIPFSData. The error was: " + String(err));
+
+                if(result)
+                    $("#setIPFSDataMessage").html("The setIPFSData result is: " + String(result));
+            });
+        }
+        
+        // this will handle the setIPFSData contact transaction
+        document.getElementById("setIPFSDataTransact").onclick = function() {
+            $("#setIPFSDataMessage").html("Transacting with method setIPFSData... This may take a minute or two.");
+    
+            
+            var setIPFSDataIPFSHash = $('#setIPFSDataIPFSHash').val();
+            
+
+            instancePurchase.setIPFSData.sendTransaction(setIPFSDataIPFSHash, instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#setIPFSDataMessage").html("There was an error transacting with method setIPFSData. The error was: " + String(err));
+    
+                if(result)
+                    $("#setIPFSDataMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+        // this will handle the refund contract call
+        document.getElementById("refundCall").onclick = function() {
+            $("#refundMessage").html("Calling method refund...");
+    
+            
+
+            instancePurchase.refund.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#refundMessage").html("There was an error calling method refund. The error was: " + String(err));
+
+                if(result)
+                    $("#refundMessage").html("The refund result is: " + String(result));
+            });
+        }
+        
+        // this will handle the refund contact transaction
+        document.getElementById("refundTransact").onclick = function() {
+            $("#refundMessage").html("Transacting with method refund... This may take a minute or two.");
+    
+            
+
+            instancePurchase.refund.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#refundMessage").html("There was an error transacting with method refund. The error was: " + String(err));
+    
+                if(result)
+                    $("#refundMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+        // this will handle the buyer contract call
+        document.getElementById("buyerCall").onclick = function() {
+            $("#buyerMessage").html("Calling method buyer...");
+    
+            
+
+            instancePurchase.buyer.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#buyerMessage").html("There was an error calling method buyer. The error was: " + String(err));
+
+                if(result)
+                    $("#buyerMessage").html("The buyer result is: " + String(result));
+            });
+        }
+        
+        // this will handle the buyer contact transaction
+        document.getElementById("buyerTransact").onclick = function() {
+            $("#buyerMessage").html("Transacting with method buyer... This may take a minute or two.");
+    
+            
+
+            instancePurchase.buyer.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#buyerMessage").html("There was an error transacting with method buyer. The error was: " + String(err));
+    
+                if(result)
+                    $("#buyerMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+        // this will handle the confirmReceived contract call
+        document.getElementById("confirmReceivedCall").onclick = function() {
+            $("#confirmReceivedMessage").html("Calling method confirmReceived...");
+    
+            
+
+            instancePurchase.confirmReceived.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#confirmReceivedMessage").html("There was an error calling method confirmReceived. The error was: " + String(err));
+
+                if(result)
+                    $("#confirmReceivedMessage").html("The confirmReceived result is: " + String(result));
+            });
+        }
+        
+        // this will handle the confirmReceived contact transaction
+        document.getElementById("confirmReceivedTransact").onclick = function() {
+            $("#confirmReceivedMessage").html("Transacting with method confirmReceived... This may take a minute or two.");
+    
+            
+
+            instancePurchase.confirmReceived.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#confirmReceivedMessage").html("There was an error transacting with method confirmReceived. The error was: " + String(err));
+    
+                if(result)
+                    $("#confirmReceivedMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+        // this will handle the state contract call
+        document.getElementById("stateCall").onclick = function() {
+            $("#stateMessage").html("Calling method state...");
+    
+            
+
+            instancePurchase.state.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#stateMessage").html("There was an error calling method state. The error was: " + String(err));
+
+                if(result)
+                    $("#stateMessage").html("The state result is: " + String(result));
+            });
+        }
+        
+        // this will handle the state contact transaction
+        document.getElementById("stateTransact").onclick = function() {
+            $("#stateMessage").html("Transacting with method state... This may take a minute or two.");
+    
+            
+
+            instancePurchase.state.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#stateMessage").html("There was an error transacting with method state. The error was: " + String(err));
+    
+                if(result)
+                    $("#stateMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+        // this will handle the IPFSData contract call
+        document.getElementById("IPFSDataCall").onclick = function() {
+            $("#IPFSDataMessage").html("Calling method IPFSData...");
+    
+            
+
+            instancePurchase.IPFSData.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#IPFSDataMessage").html("There was an error calling method IPFSData. The error was: " + String(err));
+
+                if(result)
+                    $("#IPFSDataMessage").html("The IPFSData result is: " + String(result));
+            });
+        }
+        
+        // this will handle the IPFSData contact transaction
+        document.getElementById("IPFSDataTransact").onclick = function() {
+            $("#IPFSDataMessage").html("Transacting with method IPFSData... This may take a minute or two.");
+    
+            
+
+            instancePurchase.IPFSData.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#IPFSDataMessage").html("There was an error transacting with method IPFSData. The error was: " + String(err));
+    
+                if(result)
+                    $("#IPFSDataMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+        // this will handle the confirmPurchase contract call
+        document.getElementById("confirmPurchaseCall").onclick = function() {
+            $("#confirmPurchaseMessage").html("Calling method confirmPurchase...");
+    
+            
+
+            instancePurchase.confirmPurchase.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#confirmPurchaseMessage").html("There was an error calling method confirmPurchase. The error was: " + String(err));
+
+                if(result)
+                    $("#confirmPurchaseMessage").html("The confirmPurchase result is: " + String(result));
+            });
+        }
+        
+        // this will handle the confirmPurchase contact transaction
+        document.getElementById("confirmPurchaseTransact").onclick = function() {
+            $("#confirmPurchaseMessage").html("Transacting with method confirmPurchase... This may take a minute or two.");
+    
+            
+
+            instancePurchase.confirmPurchase.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#confirmPurchaseMessage").html("There was an error transacting with method confirmPurchase. The error was: " + String(err));
+    
+                if(result)
+                    $("#confirmPurchaseMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+
+
+    
+        // this will handle the Aborted contract call
+        document.getElementById("AbortedCall").onclick = function() {
+            $("#AbortedMessage").html("Calling method Aborted...");
+    
+            
+
+            instancePurchase.Aborted.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#AbortedMessage").html("There was an error calling method Aborted. The error was: " + String(err));
+
+                if(result)
+                    $("#AbortedMessage").html("The Aborted result is: " + String(result));
+            });
+        }
+        
+        // this will handle the Aborted contact transaction
+        document.getElementById("AbortedTransact").onclick = function() {
+            $("#AbortedMessage").html("Transacting with method Aborted... This may take a minute or two.");
+    
+            
+
+            instancePurchase.Aborted.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#AbortedMessage").html("There was an error transacting with method Aborted. The error was: " + String(err));
+    
+                if(result)
+                    $("#AbortedMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+        // this will handle the PurchaseConfirmed contract call
+        document.getElementById("PurchaseConfirmedCall").onclick = function() {
+            $("#PurchaseConfirmedMessage").html("Calling method PurchaseConfirmed...");
+    
+            
+
+            instancePurchase.PurchaseConfirmed.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#PurchaseConfirmedMessage").html("There was an error calling method PurchaseConfirmed. The error was: " + String(err));
+
+                if(result)
+                    $("#PurchaseConfirmedMessage").html("The PurchaseConfirmed result is: " + String(result));
+            });
+        }
+        
+        // this will handle the PurchaseConfirmed contact transaction
+        document.getElementById("PurchaseConfirmedTransact").onclick = function() {
+            $("#PurchaseConfirmedMessage").html("Transacting with method PurchaseConfirmed... This may take a minute or two.");
+    
+            
+
+            instancePurchase.PurchaseConfirmed.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#PurchaseConfirmedMessage").html("There was an error transacting with method PurchaseConfirmed. The error was: " + String(err));
+    
+                if(result)
+                    $("#PurchaseConfirmedMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+        // this will handle the ItemReceived contract call
+        document.getElementById("ItemReceivedCall").onclick = function() {
+            $("#ItemReceivedMessage").html("Calling method ItemReceived...");
+    
+            
+
+            instancePurchase.ItemReceived.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#ItemReceivedMessage").html("There was an error calling method ItemReceived. The error was: " + String(err));
+
+                if(result)
+                    $("#ItemReceivedMessage").html("The ItemReceived result is: " + String(result));
+            });
+        }
+        
+        // this will handle the ItemReceived contact transaction
+        document.getElementById("ItemReceivedTransact").onclick = function() {
+            $("#ItemReceivedMessage").html("Transacting with method ItemReceived... This may take a minute or two.");
+    
+            
+
+            instancePurchase.ItemReceived.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#ItemReceivedMessage").html("There was an error transacting with method ItemReceived. The error was: " + String(err));
+    
+                if(result)
+                    $("#ItemReceivedMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    
+        // this will handle the Refunded contract call
+        document.getElementById("RefundedCall").onclick = function() {
+            $("#RefundedMessage").html("Calling method Refunded...");
+    
+            
+
+            instancePurchase.Refunded.call( instancePurchase.defaultCallObject, function(err, result){
+                if(err)
+                    $("#RefundedMessage").html("There was an error calling method Refunded. The error was: " + String(err));
+
+                if(result)
+                    $("#RefundedMessage").html("The Refunded result is: " + String(result));
+            });
+        }
+        
+        // this will handle the Refunded contact transaction
+        document.getElementById("RefundedTransact").onclick = function() {
+            $("#RefundedMessage").html("Transacting with method Refunded... This may take a minute or two.");
+    
+            
+
+            instancePurchase.Refunded.sendTransaction(instancePurchase.defaultTransactionObject, function(err, result){
+                if(err)
+                    $("#RefundedMessage").html("There was an error transacting with method Refunded. The error was: " + String(err));
+    
+                if(result)
+                    $("#RefundedMessage").html("The transaction went through successfully and is now being processed at hash: " + result);
+            });
+        }
+
+    
+
+
+    };</script>
+    </body>
+</html>
